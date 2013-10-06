@@ -1,0 +1,16 @@
+{
+  "name": "node-snapchat",
+  "description": "Snapchat client library",
+  "keywords": ["snapchat"],
+  "version": "0.0.1",
+  "author": "Olivier Truong <truongo@uci.edu>",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oliviert/node-snapchat.git"
+  },
+  "engines": ["node >= 0.10.0"],
+  "dependencies": {
+    "microtime": "*"
+  }
+}
