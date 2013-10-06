@@ -56,8 +56,8 @@ var Client = function(options) {
 
     this.username = options.username;
     this.password = options.password;
-
     this.auth_token = null;
+    this.loggedin = false;
 
     this.request = function(endpoint, data, options, callback) {
       if (typeof callback === 'undefined') {
@@ -121,19 +121,42 @@ Client.prototype.login = function(username, password) {
   }, function(result) {
     result = JSON.parse(result);
 
-    if (result.hasOwnProperty('auth_token'))
-      self.auth_token = result.auth_token;
-    
+    if (!result.logged) {
+      self.emit('error', 'Login failed!\nMessage: '+result.message);
+      return;
+    }
+
+    self.auth_token = result.auth_token;
     self.username = result.username;
 
+    self.loggedin = true;
     self.emit('loggedin');
   });
 };
 
 Client.prototype.logout = function(callback) {
-  delete this.auth_token;
-  self.request('/logout', { username: this.username }, function(result) {
-    if (typeof callback === 'function') callback(result.length == 0);
+  var self = this;
+
+  if (!self.loggedin) return;
+
+  var mtime = microtime.now() / 1000;
+
+  self.request('/logout', {
+    username: self.username,
+    timestamp: mtime
+  }, function(result) {
+    if (result.length !== 0) {
+      self.emit('error', 'Logout failed!\nResponse: ' + result);
+      callback(false);
+      return;
+    }
+
+    if (typeof callback !== 'undefined')
+      callback(true);
+
+    delete self.auth_token;
+
+    self.emit('loggedout');
   });
 };
 
