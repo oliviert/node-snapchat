@@ -294,7 +294,6 @@ Client.prototype.block = function(username, callback) {
     timestamp: mtime,
     username: self.username
   }, function(result) {
-    console.log(result);
     result = JSON.parse(result);
     if (result.param || result.logged) {
       callback(null, true);
@@ -302,7 +301,30 @@ Client.prototype.block = function(username, callback) {
       callback(null, false);
     }
   });
+}
 
+Client.prototype.unblock = function(username, callback) {
+  var self = this;
+  if (!self.auth_token || !self.loggedin) {
+    callback(new Error('Client is not authenticated.'));
+    return;
+  }
+
+  var mtime = microtime.now() / 1000;
+
+  self.request('/friend', {
+    action: 'unblock', 
+    friend: username,
+    timestamp: mtime,
+    username: self.username
+  }, function(result) {
+    result = JSON.parse(result);
+    if (result.param || result.logged) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  });
 };
 
 module.exports.Client = Client;
