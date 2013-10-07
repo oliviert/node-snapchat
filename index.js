@@ -279,5 +279,31 @@ Client.prototype.markViewed = function(id, time, callback) {
   });
 };
 
+Client.prototype.block = function(username, callback) {
+  var self = this;
+  if (!self.auth_token || !self.loggedin) {
+    callback(new Error('Client is not authenticated.'));
+    return;
+  }
+
+  var mtime = microtime.now() / 1000;
+
+  self.request('/friend', {
+    action: 'block', 
+    friend: username,
+    timestamp: mtime,
+    username: self.username
+  }, function(result) {
+    console.log(result);
+    result = JSON.parse(result);
+    if (result.param || result.logged) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  });
+
+};
+
 module.exports.Client = Client;
 module.exports.getFileExtension = getFileExtension;
