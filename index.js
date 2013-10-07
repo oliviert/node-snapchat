@@ -16,6 +16,7 @@ var crypto = require('crypto'),
   VERSION = '6.0.0';
 
   MEDIA_VIDEO = 1;
+  MEDIA_VIDEO_NO_AUDIO = 2;
   MEDIA_IMAGE = 0;
 
 var createReqToken = function(a, b) {
@@ -31,11 +32,13 @@ var createReqToken = function(a, b) {
 };
 
 var getFileExtension = function(mediaType) {
-  if (mediaType == MEDIA_VIDEO) {
+  if (mediaType == MEDIA_VIDEO || mediaType == MEDIA_VIDEO_NO_AUDIO) {
     return 'mp4'
   } else if (mediaType == MEDIA_IMAGE) {
     return 'jpg'
   }
+
+  return null;
 };
 
 var getMedia = function(data) {
@@ -128,8 +131,8 @@ Client.prototype.login = function(username, password) {
 
     self.auth_token = result.auth_token;
     self.username = result.username;
-
     self.loggedin = true;
+
     self.emit('loggedin');
   });
 };
