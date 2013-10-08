@@ -2,7 +2,7 @@
   "name": "node-snapchat",
   "description": "Snapchat client library",
   "keywords": ["snapchat"],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Olivier Truong <truongo@uci.edu>",
   "main": "index.js",
   "repository": {
