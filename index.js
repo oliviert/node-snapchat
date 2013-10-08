@@ -5,7 +5,8 @@ var crypto = require('crypto'),
 
   microtime = require('microtime'),
 
-  DecryptStream = require('./lib/decryptStream');
+  EncryptStream = require('node-cryptostream').EncryptStream;
+  DecryptStream = require('node-cryptostream').DecryptStream;
  
   BLOB_ENCRYPTION_KEY = 'M02cnQ51Ji97vwT4';
   HASH_PATTERN = "0001110111101110001111010101111011010001001110011000110001000110";
