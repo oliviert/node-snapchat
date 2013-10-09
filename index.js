@@ -218,7 +218,7 @@ Client.prototype.getBlob = function(id, fstream, callback) {
       fstream.setHeader('Content-type', res.headers['content-type']);
     }
 
-    var decryptStream = new DecryptStream({ key: BLOB_ENCRYPTION_KEY });
+    var decryptStream = new DecryptStream({ algorithm: 'aes-128-ecb', key: BLOB_ENCRYPTION_KEY });
     res.pipe(decryptStream);
     decryptStream.pipe(fstream);
 
