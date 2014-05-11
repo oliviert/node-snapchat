@@ -13,8 +13,8 @@ var crypto = require('crypto'),
   SECRET = "iEk21fuwZApXlz93750dmW22pw389dPwOk";
   STATIC_TOKEN = "m198sOkJEn37DjqZ32lpRu76xmw288xSQ9";
   API_HOST = "feelinsonice-hrd.appspot.com";
-  USER_AGENT = "Snapchat/6.0.0 (iPhone; iOS 7.0.2; gzip)";
-  VERSION = '6.0.0';
+  USER_AGENT = "Snapchat/4.1.07 (Nexus 4; Android 18; gzip)";
+  VERSION = '4.1.07';
 
   MEDIA_VIDEO = 1;
   MEDIA_VIDEO_NO_AUDIO = 2;
